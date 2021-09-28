@@ -10,6 +10,7 @@ function authorize(roles = []) {
        // jwt({ secret, algorithms: ['HS256'] }),
         //RBAC
         (req, res, next) => {
+            console.log(req.body);
             if (roles.length /*&& !roles.includes(req.user.role)*/) {
                 // user's role is not authorized
                 return res.status(401).json({ message: 'Unauthorized' });

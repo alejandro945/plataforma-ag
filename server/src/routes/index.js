@@ -4,10 +4,10 @@ const router = Router();
 //Invocamos dotenv variables de entrono
 require('dotenv').config();
 //Routes (Rest API)
-const places = require('../apiServices/places/routes')
-const vehicles = require('../apiServices/vehicles/routes')
-const collaborators = require('../apiServices/collaborators/routes')
-const users = require('../apiServices/users/routes')
+const places = require('../services/places/routes')
+const vehicles = require('../services/vehicles/routes')
+const collaborators = require('../services/collaborators/routes')
+const users = require('../services/users/routes')
 //GET * Homepage
 router.use('/places',places);
 router.use('/vehicles',vehicles);
