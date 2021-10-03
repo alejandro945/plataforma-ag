@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -52,7 +52,7 @@ const columns = [
 ];
 
 
-const index = () => {
+const Vehicles = () => {
     const classes = useStyles();
     const dispatch = useDispatch()
     const vehicles = useSelector(store => store.vehicles.array)
@@ -69,7 +69,7 @@ const index = () => {
 
     useEffect(() => {
        dispatch(getVehicle())
-    }, [])
+    },[])
 
     return (
         <Paper className="container my-4">
@@ -121,4 +121,4 @@ const index = () => {
     )
 }
 
-export default index
+export default Vehicles

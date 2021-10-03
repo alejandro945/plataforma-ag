@@ -1,21 +1,16 @@
 import React from 'react'
-import AppContext from './contexts/AppContext'
-import SettingsProvider from './contexts/SettingsContext'
 import Theme from './components/Theme/Theme'
 import history from '../history'
-import { Router, Switch, Route } from 'react-router-dom'
-import routes from './rootRoutes'
-import CssBaseline from '@material-ui/core/CssBaseline';
-import sessionRoutes from './views/sessions/SessionRoutes'
-import Colaborator from './views/colaborators/form'
+import { Router, Route } from 'react-router-dom'
+import Colaborator from './views/colaborators/form/Colaborator'
 import Login from './views/sessions/Login'
-import Vehicles from './views/vehicles'
+import Vehicles from './views/vehicles/Vehicles'
 import { Provider } from 'react-redux'
 import { store } from './config/configStore'
 
 const App = () => {
     return (
-            <Provider store={store}>
+           <Provider store={store}>
                 <Theme>
                     <Router history={history}>
                         <Route path="/session/colaborator">

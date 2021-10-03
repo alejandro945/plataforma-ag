@@ -18,7 +18,7 @@
     "history": "^5.0.0",
     "install": "^0.13.0",
     "lodash": "^4.17.21",
-    "npm": "^7.19.0",
+    "npm": "^7.24.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-currency-input-field": "^3.4.2",

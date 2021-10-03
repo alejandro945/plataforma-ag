@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import {
   Card,
   Checkbox,
@@ -72,7 +72,7 @@ const Login = () => {
     setLoading(true)
     try {
       // await login(userInfo.email, userInfo.password)
-      history.push('/')
+   //   history.push('/')
     } catch (e) {
       console.log(e)
       setMessage(e.message)
@@ -191,18 +191,18 @@ const Login = () => {
                   <span className="mr-2 ml-5">or</span>
                   <Button
                     className="capitalize w-50"
-                    onClick={() =>
-                      history.push('/session/signup')
-                    }
+                   /* onClick={() =>
+                    //  history.push('/session/signup')
+                    }*/
                   >
                     Sign up
                   </Button>
                 </div>
                 <Button
                   className="text-primary"
-                  onClick={() =>
-                    history.push('/session/forgot-password')
-                  }
+                 /* onClick={() =>
+                   // history.push('/session/forgot-password')
+                  }*/
                 >
                   Forgot password?
                 </Button>

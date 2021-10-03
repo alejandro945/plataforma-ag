@@ -31,7 +31,7 @@ const Contribution = ({ loading, values: { department, city, salary }, handleCha
             }
         }
         loadData()
-    }, [])
+    },[])
 
     return (
         <div className="shadow-lg my-4 p-3 bg-body rounded">

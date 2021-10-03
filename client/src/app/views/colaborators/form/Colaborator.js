@@ -1,6 +1,6 @@
 import { Button, Divider } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
-import { useForm } from "react-hook-form";
+import {useForm} from "react-hook-form";
 import { saveCollaborator } from '../../../../services';
 import Mixin from '../../../components/Alerts/Mixin';
 import DefaultAvatar from '../../../components/Avatar/DefaultAvatar';
@@ -10,7 +10,7 @@ import Contribution from './Contribution';
 import Identification from './Identification';
 import Places from './Places';
 
-const index = () => {
+const Colaborator = () => {
     //Validations
     const { register, formState: { errors } } = useForm({
         mode: "onChange",
@@ -76,7 +76,7 @@ const index = () => {
                 <Divider variant="middle" />
             </div>
             <form onSubmit={onSubmit}>
-                {(getAvatar()!='')? <DefaultAvatar name={getAvatar()} />:''}
+                {(getAvatar()!=='')? <DefaultAvatar name={getAvatar()} />:''}
                 <Basic loading={loading} handleChange={handleChange} register={register} errors={errors} values={collaborator} />
                 <Identification loading={loading} handleChange={handleChange} register={register} errors={errors} values={collaborator} />
                 <Contribution loading={loading} values={collaborator} handleChange={handleChange} />
@@ -96,4 +96,4 @@ const index = () => {
     )
 }
 
-export default index;
+export default Colaborator;
