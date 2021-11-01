@@ -4,9 +4,9 @@ const authorize = require('../../middleware/authorize')
 const userController = require('./controller')
 const Role = require('../../helpers/role')
 
-router.get('/', userController.getUsers)
+router.get('/',authorize(Role.Admin), userController.getUsers)
 router.get('/:id',userController.getById)
 router.post('/auth',userController.authenticate)
-router.post('/register',authorize(),userController.register)
+router.post('/register',authorize(Role.Admin),userController.register)
 
 module.exports = router

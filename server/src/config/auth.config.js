@@ -1,3 +1,3 @@
 module.exports = {
-    secret: "KEEP MOVING FORWARD"
+    secret: process.env.SECRET_KEY
 }

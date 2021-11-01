@@ -15,10 +15,12 @@ const Contribution = ({ loading, values: { department, city, salary }, handleCha
         getOptionLabel: option => option.department_name
     };
 
-    async function renderCities(id) {
-        await getCities(id).then(({ data }) => {
-            setCities(data);
-        })
+    async function renderCities() {
+        if (city != null) {
+            await getCities(department.id_department).then(({ data }) => {
+                setCities(data);
+            })
+        }
     }
 
     useEffect(() => {
@@ -26,12 +28,10 @@ const Contribution = ({ loading, values: { department, city, salary }, handleCha
             await getDepartments().then(({ data }) => {
                 setDepartments(data);
             })
-            if (city != null) {
-                await renderCities(department.id_department)
-            }
+          //  renderCities();
         }
         loadData()
-    },[])
+    }, [])
 
     return (
         <div className="shadow-lg my-4 p-3 bg-body rounded">
@@ -54,7 +54,7 @@ const Contribution = ({ loading, values: { department, city, salary }, handleCha
                                 size="small"
                                 {...departmentProps}
                                 value={department}
-                                getOptionSelected={(option, value) =>  option.id_department === value.id_department }
+                                getOptionSelected={(option, value) => option.id_department === value.id_department}
                                 onChange={(event, value) => {
                                     {
                                         if (value != null) {
@@ -79,7 +79,7 @@ const Contribution = ({ loading, values: { department, city, salary }, handleCha
                                 value={city || null}
                                 options={cities}
                                 getOptionLabel={(option) => option.city_name}
-                                getOptionSelected={(option, value) =>  option.id_city === value.id_city }
+                                getOptionSelected={(option, value) => option.id_city === value.id_city}
                                 onChange={(event, value) => {
                                     handleChange({ target: { name: "city", value: value } });
                                 }}

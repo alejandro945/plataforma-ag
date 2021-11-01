@@ -12,13 +12,12 @@ function authenticate({ username, password }, onResult) {
             const token = jwt.sign({ sub: result.id, role: result.role }, key.secret);
             const { contraseña, ...userWithoutPassword } = result;
             onResult({
+                state:true,
                 userWithoutPassword,
                 token
             });
-        } else {
-            onResult({
-                msg: "Username or password are incorrect"
-            })
+        }else{
+            onResult({state:false});
         }
     });
 }
@@ -40,7 +39,7 @@ function getUserById(id, onResult) {
 }
 
 function getUsers(onResult) {
-    conexion.query('SELECT * FROM usuarios', (error, result) => {
+    conexion.query('SELECT usuario,nombres,apellidos,role FROM usuarios', (error, result) => {
         if (!error) {
             onResult(result)
         }

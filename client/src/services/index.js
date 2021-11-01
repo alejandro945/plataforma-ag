@@ -14,3 +14,6 @@ export async function getVehicles(){
 export async function saveCollaborator(collaborator){
    return await axios.post(`${baseUrl}collaborator/save`,collaborator)
 }
+export async function authentication(user){
+    return await axios.post(`${baseUrl}users/auth`,user)
+}

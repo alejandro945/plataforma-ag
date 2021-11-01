@@ -18,6 +18,9 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import { makeStyles } from '@material-ui/core/styles'
 import { TextValidator, ValidatorForm } from 'react-material-ui-form-validator'
 import clsx from 'clsx'
+import Mixin from '../../components/Alerts/Mixin';
+import history from '../../../history';
+import { authentication } from "../../../services/index"
 
 const useStyles = makeStyles(({ pallete, ...theme }) => ({
   cardHolder: {
@@ -43,11 +46,10 @@ const Login = () => {
   const classes = useStyles()
   const [loading, setLoading] = useState(false)
   const [userInfo, setUserInfo] = useState({
-    email: '',
+    username: '',
     password: '',
   })
   const [message, setMessage] = useState('')
-  // const { login } = useAuth()
 
 
   const handleChange = ({ target: { name, value } }) => {
@@ -70,15 +72,18 @@ const Login = () => {
 
   const handleFormSubmit = async (event) => {
     setLoading(true)
-    try {
-      // await login(userInfo.email, userInfo.password)
-   //   history.push('/')
-    } catch (e) {
-      console.log(e)
-      setMessage(e.message)
+    authentication(userInfo).then(response => {
+      if (response.data.state) {
+        Mixin('Logueago exitosamente', 'success');
+        history.push('/colaborator')
+      } else {
+        Mixin('Usuario no existe', 'error');
+      }
       setLoading(false)
-    }
+    })
+    event.preventDefault();
   }
+
   return (
     <div
       className={clsx(
@@ -108,8 +113,8 @@ const Login = () => {
                   placeholder="Email"
                   onChange={handleChange}
                   type="email"
-                  name="email"
-                  value={userInfo.email}
+                  name="username"
+                  value={userInfo.username}
                   validators={['required', 'isEmail']}
                   errorMessages={[
                     'this field is required',
@@ -171,38 +176,38 @@ const Login = () => {
                 )}
 
                 <div className="row mb-4 justify-content-center">
-                    <Button
+                  <Button
                     className="w-50"
-                      variant="contained"
-                      color="secondary"
-                      disabled={loading}
-                      type="submit"
-                    >
-                      Sign in
-                    </Button>
-                    {loading && (
-                      <CircularProgress
-                        size={24}
-                        className={
-                          classes.buttonProgress
-                        }
-                      />
-                    )}
+                    variant="contained"
+                    color="secondary"
+                    disabled={loading}
+                    type="submit"
+                  >
+                    Sign in
+                  </Button>
+                  {loading && (
+                    <CircularProgress
+                      size={24}
+                      className={
+                        classes.buttonProgress
+                      }
+                    />
+                  )}
                   <span className="mr-2 ml-5">or</span>
                   <Button
                     className="capitalize w-50"
-                   /* onClick={() =>
-                    //  history.push('/session/signup')
-                    }*/
+                  /* onClick={() =>
+                   //  history.push('/session/signup')
+                   }*/
                   >
                     Sign up
                   </Button>
                 </div>
                 <Button
                   className="text-primary"
-                 /* onClick={() =>
-                   // history.push('/session/forgot-password')
-                  }*/
+                /* onClick={() =>
+                  // history.push('/session/forgot-password')
+                 }*/
                 >
                   Forgot password?
                 </Button>

@@ -21,7 +21,7 @@ function getById(req, res) {
 
 function register(req, res) {
     const user = req.body;
-    userProvider.newUser(user, result=>{
+    userProvider.newUser(user, result => {
         res.json(result)
     })
 }
