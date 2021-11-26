@@ -5,7 +5,7 @@ const redirectRoute = [
     {
         path: '/',
         exact: 'true',
-        component: () => <Redirect to="/session/employee" />
+        component: () => <Redirect to="/session/login" />
     }
 ]
 const errorRoute = [

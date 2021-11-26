@@ -173,9 +173,9 @@ export const navigations = [
         ],
     },
     {
-        name: 'Documentation',
+        name: 'Colaborators',
         icon: 'launch',
-        type: 'extLink',
-        path: 'http://demos.ui-lib.com/matx-react-doc/',
+        iconText: 'C',
+        path: '/colaborator',
     },
 ]

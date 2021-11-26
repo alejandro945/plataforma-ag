@@ -18,7 +18,7 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import { makeStyles } from '@material-ui/core/styles'
 import { TextValidator, ValidatorForm } from 'react-material-ui-form-validator'
 import clsx from 'clsx'
-import Mixin from '../../components/Alerts/Mixin';
+import Mixin from '../../components/Notification/Mixin';
 import history from '../../../history';
 import { authentication } from "../../../services/index"
 

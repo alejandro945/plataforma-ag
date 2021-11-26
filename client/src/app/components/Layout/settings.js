@@ -8,7 +8,7 @@ export const LayoutSettings = {
     footer: {
       show: true,
       fixed: false,
-      theme: "slate"
+      theme: "red"
     }
    /*layoutSettings: {
       leftSidebar: {

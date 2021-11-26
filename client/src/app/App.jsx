@@ -1,30 +1,34 @@
 import React from 'react'
 import Theme from './components/Theme/Theme'
 import history from '../history'
-import { Router, Route } from 'react-router-dom'
-import Colaborator from './views/colaborators/form/Colaborator'
-import Login from './views/sessions/Login'
-import Vehicles from './views/vehicles/Vehicles'
+import { Route, BrowserRouter,Switch } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { store } from './config/configStore'
+import AppContext from './contexts/AppContext'
+import routes from './rootRoutes'
+import sessionRoutes from './views/sessions/SessionRoutes'
+import Suspense from './components/Suspend/Suspend'
 
 const App = () => {
     return (
-           <Provider store={store}>
+        <AppContext.Provider value={{routes}}>
+            <Provider store={store}>
                 <Theme>
-                    <Router history={history}>
-                        <Route path="/session/colaborator">
-                            <Colaborator />
-                        </Route>
-                        <Route path="/session/login">
-                            <Login />
-                        </Route>
-                        <Route path="/session/vehicles">
-                            <Vehicles />
-                        </Route>
-                    </Router>
+                    <BrowserRouter>
+                        <Switch>
+                            {/* AUTHENTICATION PAGES (SIGNIN, SIGNUP ETC.) */}
+                            {sessionRoutes.map((item, i) => (                          
+                                <Route
+                                    key={i}
+                                    path={item.path}
+                                    component={item.component}
+                                />
+                            ))}
+                        </Switch>
+                    </BrowserRouter>
                 </Theme>
             </Provider>
+        </AppContext.Provider>
     )
 }
 

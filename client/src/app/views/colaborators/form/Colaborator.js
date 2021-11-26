@@ -2,7 +2,7 @@ import { Button, Divider } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
 import {useForm} from "react-hook-form";
 import { saveCollaborator } from '../../../../services';
-import Mixin from '../../../components/Alerts/Mixin';
+import Mixin from '../../../components/Notification/Mixin';
 import DefaultAvatar from '../../../components/Avatar/DefaultAvatar';
 import { getAvatar, upperFormat } from '../../../utils';
 import Basic from './Basic';

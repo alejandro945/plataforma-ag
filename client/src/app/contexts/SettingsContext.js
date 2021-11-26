@@ -5,7 +5,8 @@ import { merge } from 'lodash'
 import { LayoutSettings } from '../components/Layout/settings'
 
 const SettingsContext = createContext({
-    settings: LayoutSettings,
+    themeMode : 'light',
+    themeColor: 'defaul',
     updateSettings: () => {},
 })
 
