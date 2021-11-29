@@ -24,11 +24,11 @@ function getCities(req, res) {
 }
 
 function saveDepartment() {
-    return placesModel.save();
+    return placesProvider.save();
 }
 
 function editDepartment() {
-    return placesModel.update();
+    return placesProvider.update();
 }
 
 module.exports = {

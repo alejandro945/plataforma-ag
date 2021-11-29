@@ -1,21 +1,27 @@
 const conexion = require('../../database')
-const collaboratorModel = require('./model')
+const collaboratorProvider = require('./provider')
 
 function getColaborators(req, res) {
-    conexion.query('SELECT * from empleados', (error, result) => {
-        if (error) {
-            res = error;
+    collaboratorProvider.getColaborators(result => { 
+        if (result) {
+            res.json(result).status(200)
         } else {
-            res.json(result)
+            res.sendStatus(500)
         }
     })
 }
 
-function saveCollaborator(req,res) {
-    return collaboratorModel.saveCollaborator(req,res);
+function addCollaborator(req, res) {
+    collaboratorProvider.saveCollaborator(req.body, result => {
+        if (result.state) {
+            res.json(result).status(200)
+        } else {
+            res.senStatus(500)
+        }
+    });
 }
 
 module.exports = {
     getColaborators,
-    saveCollaborator
+    addCollaborator
 }

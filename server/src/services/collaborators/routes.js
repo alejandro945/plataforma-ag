@@ -3,6 +3,6 @@ const router = Router()
 const collaboratorController = require('./controller')
 
 router.get('/',collaboratorController.getColaborators)
-router.post('/save',collaboratorController.saveCollaborator)
+router.post('/save',collaboratorController.addCollaborator)
 
 module.exports= router;

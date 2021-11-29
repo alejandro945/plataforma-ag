@@ -2,7 +2,12 @@ const userProvider = require('./provider')
 
 function authenticate(req, res) {
     userProvider.authenticate(req.body, result => {
-        res.json(result);
+        console.log(result)
+        if(result.state){
+            res.json(result).status(200);
+        }else{
+            res.sendStatus(500);
+        }
     })
 }
 

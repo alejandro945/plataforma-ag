@@ -8,7 +8,7 @@ const places = require('../services/places/routes')
 const vehicles = require('../services/vehicles/routes')
 const collaborators = require('../services/collaborators/routes')
 const users = require('../services/users/routes')
-//GET * Homepage
+//GET * Pages
 router.use('/places',places);
 router.use('/vehicles',vehicles);
 router.use('/collaborators',collaborators);
