@@ -1,4 +1,4 @@
-const conexion = require('../../database');
+const conexion = require('../../db');
 
 function saveCollaborator(colaborator, onResult) {
     conexion.query('INSERT INTO empleados SET ?', {

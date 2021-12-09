@@ -1,4 +1,4 @@
-const conexion = require('../../database')
+const conexion = require('../../db')
 const collaboratorProvider = require('./provider')
 
 function getColaborators(req, res) {
