@@ -1,4 +1,4 @@
-const conexion = require('../../database');
+const conexion = require('../../db');
 const placesProvider = require('./provider')
 
 

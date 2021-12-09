@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const key = require('../../config/auth.config');
-const conexion = require('../../database')
+const conexion = require('../../db')
 const bcrypt = require('bcryptjs')
 
 function authenticate({ username, password }, onResult) {

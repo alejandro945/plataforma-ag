@@ -1,4 +1,4 @@
-const conexion = require('../../database/index');
+const conexion = require('../../db/index');
 
 //Invocamos conexion a mysql
 function getVehicles (req, res) {

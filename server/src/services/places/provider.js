@@ -1,4 +1,4 @@
-const conexion = require('../../database');
+const conexion = require('../../db');
 
 function save(req, res) {
     const department_name = req.body.department_name;
