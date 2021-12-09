@@ -1,14 +1,14 @@
 const fs = require('fs');
-console.log(process.env.DB_USER)
+require('dotenv').config()
 module.exports = {
   development: {
-    username: "root",
-    password: "root",
-    database: "transportes_ag",
-    host: "localhost",
     dialect: 'mysql',
+    username: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
+    host: process.env.DB_HOST,
     dialectOptions: {
-      socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock",
+      socketPath: process.env.DB_SOCKET
     }
   },
   test: {
