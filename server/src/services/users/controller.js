@@ -1,6 +1,5 @@
 const userProvider = require('./provider')
-const Sequelize = require('sequelize')
-const usuarios = require('../../db/models').User
+const db = require('../../db/models')
 
 function authenticate(req, res) {
     userProvider.authenticate(req.body, result => {
@@ -13,34 +12,46 @@ function authenticate(req, res) {
     })
 }
 
-function getUsers(req, res) {
-    userProvider.getUsers(result => {
-        res.json(result);
-    })
+function getUsers(_, res) {
+    return db.User
+        .findAll({ attributes: {exclude: ['contraseña']}})
+        .then(results => res.status(200).json(results))
+        .catch(error => res.status(400).send(error))
 }
 
 function getById(req, res) {
     const { id } = req.params;
-    userProvider.getUserById(id, (result) => {
-        res.json(result);
+    return db.User
+    .findOne({
+        where: {
+            id: id
+        },
+        attributes: {exclude: ['contraseña']}
     })
+    .then(results => res.status(200).send(results))
+    .catch(error => res.status(400).send(error))
 }
 
-async function register(req, res) {
-    return usuarios.findOrCreate({
+function addUser(req, res) {
+    return db.User.findOrCreate({
         where: {
-            usuario: req.params.username,
+            usuario: req.body.username,
         },
-        username: req.params.username,
-        status: req.params.status
+        defaults: {
+            usuario: req.body.username,
+            contraseña: req.body.password,
+            role: req.body.role,
+            nombres: req.body.name,
+            apellidos: req.body.lastName
+        }
     })
-    .then(usuarios => res.status(200).send(usuarios))
-    .catch(error => res.status(400).send(error))     
+        .then(results => res.status(200).json(results))
+        .catch(error => res.status(400).send(error))
 }
 
 module.exports = {
     getUsers,
     getById,
     authenticate,
-    register
+    addUser
 }

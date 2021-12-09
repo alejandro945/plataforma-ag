@@ -9,31 +9,38 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       usuario: {
-        type: Sequelize.STRING,
-        allowNull: false 
+        allowNull: false,
+        type: Sequelize.STRING
       },
       contraseña: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       role: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       nombres: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       apellidos: {
+        allowNull: false,
         type: Sequelize.STRING
       },     
       estado:{
+        allowNull: false,
         type: Sequelize.BOOLEAN
       },
       createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
+        type: 'TIMESTAMP',
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+        allowNull: false
       },
       updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
+        type: 'TIMESTAMP',
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+        allowNull: false
       }
     });
   },
