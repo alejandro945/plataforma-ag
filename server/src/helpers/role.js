@@ -1,4 +1,6 @@
 module.exports = {
   Admin: 'ADMIN',
-  User: 'USER'
+  Employee: 'EMPLOYEE',
+  Affiliate: 'AFILIADO',
+  Driver: 'CONDUCTOR'
 }

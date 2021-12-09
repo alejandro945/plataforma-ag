@@ -7,6 +7,6 @@ const Role = require('../../helpers/role')
 router.get('/',authorize(Role.Admin), userController.getUsers)
 router.get('/:id',userController.getById)
 router.post('/auth',userController.authenticate)
-router.post('/register',authorize(Role.Admin),userController.register)
+router.post('/register',userController.register)
 
 module.exports = router
