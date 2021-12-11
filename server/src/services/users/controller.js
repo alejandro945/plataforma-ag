@@ -2,7 +2,6 @@ const db = require('../../db/models')
 const jwt = require('jsonwebtoken');
 const key = require('../../config/auth.config');
 const bcrypt = require('bcryptjs');
-const { Op } = require("sequelize");
 
 function authenticate(req, res) {
     db.User.findOne({
@@ -14,7 +13,7 @@ function authenticate(req, res) {
             if (bcrypt.compareSync(req.body.password, results.contraseña)) {
                 results.changed('updatedAt', true)
                 results.save()
-                const token = jwt.sign({ sub: results.id, role: results.role }, key.secret);
+                const token = jwt.sign({ sub: results.id, username: results.usuario, role: results.role }, key.secret, { expiresIn: '12hr' });
                 const { contraseña, ...userWithoutPassword } = results.dataValues;
                 res.status(200).json({ userWithoutPassword, token });
             } else {
@@ -61,7 +60,7 @@ function add(req, res) {
         .catch(error => res.status(400).send(error))
 }
 
-function update(req, res) {
+async function update(req, res) {
     const { id } = req.params;
     const data = {
         usuario: req.body.username,
@@ -71,20 +70,22 @@ function update(req, res) {
         apellidos: req.body.lastName,
         estado: req.body.state
     }
-    db.User.findOne({
-        where: {
-            usuario: data.usuario
-        }
-    }).then(res.status(500)).catch(db.User.update(data, { where: { id: id } })
-        .then(results => res.status(200).json(results))
-        .catch(error => res.status(400).send(error)));
+    const prev = await db.User.findByPk(id);
+    const exists = await db.User.findOne({ where: { usuario: data.usuario } });
+    if ((prev.usuario == data.usuario) || !exists) {
+        db.User.update(data, { where: { id: id } })
+            .then(results => res.status(200).json(results))
+            .catch(error => res.status(500).send(error))
+    } else {
+        res.sendStatus(400)
+    }
 }
 
 function destroy(req, res) {
     const { id } = req.params;
     db.User.destroy({ where: { id: id } })
         .then(results => res.status(200).json(results))
-        .catch(error => res.status(400).send(error))
+        .catch(error => res.status(500).send(error))
 }
 
 module.exports = {

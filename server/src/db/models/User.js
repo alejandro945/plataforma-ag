@@ -5,17 +5,19 @@ const {
 const bcrypt = require('bcryptjs');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
       // define association here
     }
   };
   User.init({
-    usuario: { type: DataTypes.STRING, allowNull: false },
+    usuario: {
+      type: DataTypes.STRING, 
+      allowNull: false, 
+      unique: true, 
+      validate: {
+        isEmail: true
+      }
+    },
     contraseña: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -31,8 +33,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'User',
-    tableName: 'usuarios',
-    timestamps: true
+    tableName: 'usuarios'
   });
   return User;
 };
