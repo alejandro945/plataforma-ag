@@ -1,18 +1,43 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('fuecs', {
+    await queryInterface.createTable('Relatives', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      origen: {
+      id_employee: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'employee',
+          key: 'id'
+        }
+      },
+      relationship: {
         type: Sequelize.STRING
       },
-      destino: {
+      name: {
         type: Sequelize.STRING
+      },
+      lastName: {
+        type: Sequelize.STRING
+      },
+      occupation: {
+        type: Sequelize.ENUM
+      },
+      birth: {
+        type: Sequelize.DATE
+      },
+      id_type: {
+        type: Sequelize.ENUM
+      },
+      id_number: {
+        type: Sequelize.BIGINT
+      },
+      telephone: {
+        type: Sequelize.BIGINT
       },
       createdAt: {
         type: 'TIMESTAMP',
@@ -27,6 +52,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('fuecs');
+    await queryInterface.dropTable('Relatives');
   }
 };

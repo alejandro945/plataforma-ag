@@ -2,7 +2,7 @@ const { Router } = require('express')
 const router = Router();
 const authorize = require('../../middleware/authorize')
 const userController = require('./controller')
-const {roles} = require('../../helpers/list')
+const {roles} = require('../../helpers')
 
 router.get('/',authorize(roles.Admin), userController.get)
 router.get('/:id',userController.getById)

@@ -26,5 +26,11 @@ module.exports = {
     agreement_types=[
         'DEFINIDO',
         'INDEFINIDO'
+    ],
+    occupation_types=[
+        'ESTUDIANTE',
+        'EMPLEADO',
+        'INDEPENDIETE',
+        'DESEMPLEADO'
     ]
 }

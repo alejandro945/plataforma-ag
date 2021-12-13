@@ -8,8 +8,13 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Employee.hasOne(models.agreement,{
         foreignKey:'employee_id',
-        onDelete: 'RESTRICT'
+        onDelete: 'CASCADE'
       })
+      Employee.hasMany(models.relative,{
+        foreignKey:'employee_id'
+      })
+      Employee.belongsTo(models.department)
+      Employee.belongsTo(models.city)
     }
   };
   Employee.init({
@@ -62,7 +67,11 @@ module.exports = (sequelize, DataTypes) => {
       values: charges,
       allowNull: false
     },
-    department:{
+    department_id:{
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    city:{
 
     },
     file: {

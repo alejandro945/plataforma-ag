@@ -21,21 +21,26 @@ module.exports = (sequelize, DataTypes) => {
     initial_date: {
       type: DataTypes.DATE,
       allowNull: false
-    },  
-    finish_date:{
+    },
+    finish_date: {
       type: DataTypes.DATE
     },
-    eps:{
-
+    eps: {
+      type: DataTypes.String,
+      allowNull=false
     },
-    fondo_pension:{
-
+    pension_fund: {
+      type: DataTypes.String,
+      allowNull=false
     },
-    
+    severance_fund: {
+      type: DataTypes.String,
+      allowNull=false
+    }
   }, {
     sequelize,
     modelName: 'Agreement',
-    tableName: 'Contratos'
+    tableName: 'contratos'
   });
   return Agreement;
 };
