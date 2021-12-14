@@ -1,39 +1,19 @@
-const conexion = require('../../db');
-const placesProvider = require('./provider')
+const db = require('../../db/models')
 
-
-function getDepartments(req, res) {
-    conexion.query('SELECT * FROM departamentos', (error, result) => {
-        if (error) {
-            console.log('OPPS SORRY MEN');
-        } else {
-            res.json(result);
-        }
-    })
+function getDepartments(_, res) {
+    db.Department.findAll()
+        .then(results => res.status(200).json(results))
+        .catch(error => res.status(500).send(error))
 }
 
 function getCities(req, res) {
     const { id } = req.params
-    conexion.query('SELECT id_city, city_name FROM ciudades WHERE id_department=?', [id], (error, result) => {
-        if (error) {
-            console.log(error);
-        } else {
-            res.json(result);
-        }
-    })
-}
-
-function saveDepartment() {
-    return placesProvider.save();
-}
-
-function editDepartment() {
-    return placesProvider.update();
+    db.City.findAll({ where: { department_id: id }, include: 'Department' })
+        .then(results => res.status(200).json(results))
+        .catch(error => res.status(500).send(error))
 }
 
 module.exports = {
     getDepartments,
-    getCities,
-    saveDepartment,
-    editDepartment
+    getCities
 };

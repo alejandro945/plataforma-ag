@@ -9,6 +9,6 @@ router.get('/:id',userController.getById)
 router.post('/auth',userController.authenticate)
 router.post('/new',userController.add)
 router.put('/:id',userController.update)
-router.delete('/:id',userController.destroy)
+router.delete('/:id',userController.remove)
 
 module.exports = router

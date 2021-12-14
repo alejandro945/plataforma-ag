@@ -81,7 +81,7 @@ async function update(req, res) {
     }
 }
 
-function destroy(req, res) {
+function remove(req, res) {
     const { id } = req.params;
     db.User.destroy({ where: { id: id } })
         .then(results => res.status(200).json(results))
@@ -94,5 +94,5 @@ module.exports = {
     get,
     add,
     update,
-    destroy
+    remove
 }
