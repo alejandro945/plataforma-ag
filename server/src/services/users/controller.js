@@ -4,11 +4,7 @@ const key = require('../../config/auth.config');
 const bcrypt = require('bcryptjs');
 
 function authenticate(req, res) {
-    db.User.findOne({
-        where: {
-            usuario: req.body.username
-        }
-    })
+    db.User.findOne({where: {usuario: req.body.username}})
         .then(results => {
             if (bcrypt.compareSync(req.body.password, results.contraseña)) {
                 results.changed('updatedAt', true)
@@ -25,13 +21,7 @@ function authenticate(req, res) {
 
 function getById(req, res) {
     const { id } = req.params;
-    return db.User
-        .findOne({
-            where: {
-                id: id
-            },
-            attributes: { exclude: ['contraseña'] }
-        })
+    db.User.findOne({where: {id: id},attributes: { exclude: ['contraseña'] }})
         .then(results => res.status(200).send(results))
         .catch(error => res.status(400).send(error))
 }
@@ -44,32 +34,14 @@ function get(_, res) {
 }
 
 function add(req, res) {
-    return db.User.findOrCreate({
-        where: {
-            usuario: req.body.username,
-        },
-        defaults: {
-            usuario: req.body.username,
-            contraseña: req.body.password,
-            role: req.body.role,
-            nombres: req.body.name,
-            apellidos: req.body.lastName
-        }
-    })
+    return db.User.findOrCreate({where: {usuario: req.body.username,},defaults: req.body})
         .then(results => res.status(200).json(results))
         .catch(error => res.status(400).send(error))
 }
 
 async function update(req, res) {
     const { id } = req.params;
-    const data = {
-        usuario: req.body.username,
-        contraseña: req.body.password,
-        role: req.body.role,
-        nombres: req.body.name,
-        apellidos: req.body.lastName,
-        estado: req.body.state
-    }
+    const data = req.body
     const prev = await db.User.findByPk(id);
     const exists = await db.User.findOne({ where: { usuario: data.usuario } });
     if ((prev.usuario == data.usuario) || !exists) {
