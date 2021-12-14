@@ -1,20 +1,24 @@
 'use strict';
-import { charges, genres, id_types } from '../../helpers';
+const { charges, genres, id_types } = require('../../helpers')
 const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Employee extends Model {
     static associate(models) {
-      Employee.hasOne(models.agreement,{
+      Employee.hasOne(models.Agreement,{
         foreignKey:'employee_id',
         onDelete: 'CASCADE'
       })
-      Employee.hasMany(models.relative,{
+      Employee.hasMany(models.Relative,{
         foreignKey:'employee_id'
       })
-      Employee.belongsTo(models.department)
-      Employee.belongsTo(models.city)
+      Employee.belongsTo(models.Department,{
+        foreignKey: 'department_id'
+      })
+      Employee.belongsTo(models.City,{
+        foreignKey: 'city_id'
+      })
     }
   };
   Employee.init({
@@ -69,10 +73,21 @@ module.exports = (sequelize, DataTypes) => {
     },
     department_id:{
       type: DataTypes.INTEGER,
+      allowNull: false,
+      foreignKey: true
+    },
+    city_id:{
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      foreignKey: true
+    },
+    license_expiration:{
+      type: DataTypes.DATE,
       allowNull: false
     },
-    city:{
-
+    hasFines:{
+      type: DataTypes.STRING,
+      allowNull: false
     },
     file: {
       type: DataTypes.STRING,
@@ -84,7 +99,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Employee',
-    tableName: 'colaboradores'
+    tableName: 'empleados'
   });
   return Employee;
 };

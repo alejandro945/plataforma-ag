@@ -5,11 +5,14 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class City extends Model {
     static associate(models) {
-      City.belongsTo(models.department)
+      City.belongsTo(models.Department,{
+        as: 'Department',
+        foreignKey: 'department_id'
+      })
     }
   };
   City.init({
-    id_department: DataTypes.INTEGER,
+    department_id: { type: DataTypes.INTEGER },
     city_name: { type: DataTypes.STRING, allowNull: false }
   }, {
     sequelize,

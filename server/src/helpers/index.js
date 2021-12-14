@@ -1,5 +1,5 @@
 module.exports = {
-    charges=[
+    charges:[
         'CONDUCTOR',
         'ASISTENTE CONTABLE',
         'AUXILIAR DE PROCESOS',
@@ -7,27 +7,27 @@ module.exports = {
         'GERENTE',
         'AFILIADO'
     ],
-    roles={
+    roles:{
         Admin: 'ADMIN',
         Employee: 'ADM_EMPLEADO',
         Affiliate: 'AFILIADO',
         Driver: 'CONDUCTOR'
     },
-    genres=[
+    genres:[
         'HOMBRE',
         'MUJER',
         'OTRO'
     ],
-    id_types=[
+    id_types:[
         'TI',
         'CC',
         'CE'
     ],
-    agreement_types=[
+    agreement_types:[
         'DEFINIDO',
         'INDEFINIDO'
     ],
-    occupation_types=[
+    occupation_types:[
         'ESTUDIANTE',
         'EMPLEADO',
         'INDEPENDIETE',

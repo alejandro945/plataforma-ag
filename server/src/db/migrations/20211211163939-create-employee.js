@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Employees', {
+    await queryInterface.createTable('empleados', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -9,14 +9,79 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       firstName: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       lastName: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       email: {
         type: Sequelize.STRING,
-        allowNull:false
+        allowNull: false
+      },
+      telephone1: {
+        type: Sequelize.BIGINT
+      },
+      telephone2: {
+        type: Sequelize.BIGINT
+      },
+      address: {
+        type: Sequelize.STRING,
+      },
+      genre: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      id_type: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      license_type: {
+        type: Sequelize.STRING,
+      },
+      id_number: {
+        type: Sequelize.BIGINT,
+        allowNull: false
+      },
+      charge: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      department_id: {
+        type: Sequelize.UUID,
+        references: {
+          model: 'departamentos',
+          key: 'id'
+        },
+        onUpdate: 'cascade',
+        onDelete: 'cascade',
+        allowNull: false
+      },
+      city_id: {
+        type: Sequelize.UUID,
+        references: {
+          model: {
+            tableName: 'ciudades1',
+            schema: 'schema'
+          },
+          key: 'id'
+        }
+      },
+      hasFines: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      license_expiration: {
+        type: Sequelize.DATE,
+        allowNull: false
+      },
+      file: {
+        type: Sequelize.STRING,
+      },
+      state: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false
       },
       createdAt: {
         type: 'TIMESTAMP',
@@ -31,6 +96,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Employees');
+    await queryInterface.dropTable('empleados');
   }
 };

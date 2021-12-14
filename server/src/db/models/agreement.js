@@ -1,12 +1,14 @@
 'use strict';
-import { agreement_types } from '../../helpers'
+const { agreement_types } = require('../../helpers')
 const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Agreement extends Model {
     static associate(models) {
-      Agreement.belongsTo(models.Employee)
+      Agreement.belongsTo(models.Employee,{
+        foreignKey: 'employee_id'
+      })
     }
   };
   Agreement.init({
@@ -26,16 +28,20 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE
     },
     eps: {
-      type: DataTypes.String,
-      allowNull=false
+      type: DataTypes.STRING,
+      allowNull: false
     },
     pension_fund: {
-      type: DataTypes.String,
-      allowNull=false
+      type: DataTypes.STRING,
+      allowNull: false
     },
     severance_fund: {
-      type: DataTypes.String,
-      allowNull=false
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    salary: {
+      type: DataTypes.INTEGER,
+      allowNull: false
     }
   }, {
     sequelize,

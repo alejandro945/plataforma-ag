@@ -1,19 +1,19 @@
 'use strict';
-import { id_types,occupation_types } from '../../helpers';
+const { id_types,occupation_types } = require('../../helpers')
 const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Relative extends Model {
     static associate(models) {
-      Relative.belongsTo(models.employee, {
+      Relative.belongsTo(models.Employee, {
         as: 'Employee',
-        foreignKey: 'id_employee'
+        foreignKey: 'employee_id'
       })
     }
   };
   Relative.init({
-    id_employee: DataTypes.INTEGER,
+    employee_id: DataTypes.INTEGER,
     relationship: DataTypes.STRING,
     name: DataTypes.STRING,
     lastName: DataTypes.STRING,

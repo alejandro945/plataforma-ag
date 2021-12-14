@@ -1,43 +1,47 @@
 'use strict';
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('familiares', {
+    await queryInterface.createTable('contratos', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      id_employee: {
+      employee_id: {
         type: Sequelize.INTEGER,
         references: {
           model: 'Employee',
           key: 'id'
         }
       },
-      relationship: {
-        type: Sequelize.STRING
+      type: {
+        type: Sequelize.STRING,
+        allowNull: false
       },
-      name: {
-        type: Sequelize.STRING
+      initial_date: {
+        type: Sequelize.DATE,
+        allowNull: false
       },
-      lastName: {
-        type: Sequelize.STRING
-      },
-      occupation: {
-        type: Sequelize.STRING
-      },
-      birth: {
+      finish_date: {
         type: Sequelize.DATE
       },
-      id_type: {
-        type: Sequelize.STRING
+      eps: {
+        type: Sequelize.STRING,
+        allowNull:false
       },
-      id_number: {
-        type: Sequelize.BIGINT
+      pension_fund: {
+        type: Sequelize.STRING,
+        allowNull:false
       },
-      telephone: {
-        type: Sequelize.BIGINT
+      severance_fund: {
+        type: Sequelize.STRING,
+        allowNull:false
+      },
+      salaty:{
+        type: Sequelize.BIGINT,
+        allowNull: false
       },
       createdAt: {
         type: 'TIMESTAMP',
@@ -51,7 +55,8 @@ module.exports = {
       }
     });
   },
+
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('familiares');
+    await queryInterface.dropTable('contratos');
   }
 };
