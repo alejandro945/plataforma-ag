@@ -1,17 +1,16 @@
 'use strict';
+const { genres, id_types } = require('../../helpers')
 const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Person extends Model {
     static associate(models) {
-      Person.hasOne(models.Employee,{
-        as:'Employee',
-        foreignKey:'person_id'
+      Employee.belongsTo(models.Department,{
+        foreignKey: 'department_id'
       })
-      Person.hasOne(models.Owner,{
-        as:'Owner',
-        foreignKey:'person_id'
+      Employee.belongsTo(models.City,{
+        foreignKey: 'city_id'
       })
     }
   };
@@ -57,10 +56,28 @@ module.exports = (sequelize, DataTypes) => {
         isNumeric: true
       }
     },
+    department_id:{
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      foreignKey: true
+    },
+    city_id:{
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      foreignKey: true
+    },
+    birth:{
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    state: {
+      type: DataTypes.STRING,
+      defaultValue: 'ACTIVO'
+    }
   }, {
     sequelize,
     modelName: 'Person',
-    tableName:'personas'
+    tableName: 'personas'
   });
   return Person;
 };

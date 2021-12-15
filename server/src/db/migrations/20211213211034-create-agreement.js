@@ -39,7 +39,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull:false
       },
-      salaty:{
+      salary:{
         type: Sequelize.BIGINT,
         allowNull: false
       },

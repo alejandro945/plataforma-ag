@@ -6,11 +6,18 @@ const bcrypt = require('bcryptjs');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
-      // define association here
+      User.belongsTo(models.Person, {
+        as: 'Person',
+        foreignKey: 'person_id'
+      })
     }
   };
   User.init({
-    usuario: {
+    person_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    username: {
       type: DataTypes.STRING, 
       allowNull: false, 
       unique: true, 
@@ -18,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
         isEmail: true
       }
     },
-    contraseña: {
+    password: {
       type: DataTypes.STRING,
       allowNull: false,
       set(value) {
@@ -27,8 +34,6 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     role: { type: DataTypes.STRING, allowNull: false },
-    nombres: { type: DataTypes.STRING, allowNull: false },
-    apellidos: { type: DataTypes.STRING, allowNull: false },
     estado: { type: DataTypes.BOOLEAN, defaultValue: 1 }
   }, {
     sequelize,

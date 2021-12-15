@@ -7,17 +7,30 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Owner.hasMany(models.Vehicle, {
         as: 'Vehicles',
-        foreignKey: true
+        foreignKey: 'owner_id'
+      })
+      Owner.belongsTo(models.Person, {
+        as: 'Person',
+        foreignKey: 'person_id'
       })
     }
   };
   Owner.init({
-    firstName: { type: DataTypes.STRING, allowNull: false },
-    lastName: { type: DataTypes.STRING, allowNull: false },
-    email: DataTypes.STRING
+    person_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    debt:{
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
+    file: {
+      type: DataTypes.STRING,
+    }
   }, {
     sequelize,
     modelName: 'Owner',
+    tableName: 'propietarios'
   });
   return Owner;
 };
