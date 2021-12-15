@@ -4,15 +4,15 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Agreement extends Model {
+  class EmployeeAgreement extends Model {
     static associate(models) {
-      Agreement.belongsTo(models.Employee, {
+      EmployeeAgreement.belongsTo(models.Employee, {
         as: 'Employee',
         foreignKey: 'employee_id'
       })
     }
   };
-  Agreement.init({
+  EmployeeAgreement.init({
     employee_id: {
       type: DataTypes.INTEGER,
       allowNull: false
@@ -46,8 +46,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    modelName: 'Agreement',
-    tableName: 'contratos'
+    modelName: 'EmployeeAgreement',
+    tableName: 'contratos_de_empleados'
   });
-  return Agreement;
+  return EmployeeAgreement;
 };

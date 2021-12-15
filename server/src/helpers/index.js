@@ -8,7 +8,7 @@ module.exports = {
         'AFILIADO'
     ],
     roles: {
-        Admin: 'ADMIN',
+        Admin: ['ADMIN','ADM_EMPLEADO','AFILIADO','CONDUCTOR'],
         Employee: 'ADM_EMPLEADO',
         Affiliate: 'AFILIADO',
         Driver: 'CONDUCTOR'

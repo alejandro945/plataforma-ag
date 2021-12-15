@@ -9,6 +9,10 @@ module.exports = (sequelize, DataTypes) => {
         as: 'Owner',
         foreignKey: 'owner_id'
       })
+      Vehicle.hasOne(models.Document, {
+        as: 'Documents',
+        foreignKey: 'vehicle_id'
+      })
     }
   };
   Vehicle.init({
@@ -17,16 +21,22 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false
     },
+    plate: { type: DataTypes.STRING(24), allowNull: false },
+    model: { type: DataTypes.INTEGER, allowNull: false },
+    brand: { type: DataTypes.STRING, allowNull: false },
+    class: { type: DataTypes.STRING, allowNull: false },
+    capacity: { type: DataTypes.INTEGER, allowNull: false },
+    chassis: { type: DataTypes.STRING, allowNull: false },
+    engine: { type: DataTypes.STRING, allowNull: false },
+    cylinder: { type: DataTypes.INTEGER, allowNull: false },
     state: {
       type: DataTypes.STRING,
       defaultValue: 'ACTIVO'
     },
-    plate: { type: DataTypes.STRING, allowNull: false },
-    email: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Vehicle',
-    tableName:'vehiculos'
+    tableName: 'vehiculos'
   });
   return Vehicle;
 };

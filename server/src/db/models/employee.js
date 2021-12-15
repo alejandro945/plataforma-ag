@@ -6,16 +6,22 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Employee extends Model {
     static associate(models) {
-      Employee.hasOne(models.Agreement, {
-        foreignKey: 'employee_id',
-        onDelete: 'CASCADE'
+      Employee.hasOne(models.EmployeeAgreement, {
+        as: 'Agreement',
+        foreignKey: 'employee_id'
       })
       Employee.hasMany(models.Relative, {
+        as: 'Relatives',
         foreignKey: 'employee_id'
       })
       Employee.belongsTo(models.Person, {
         as: 'Person',
         foreignKey: 'person_id'
+      })
+      Employee.belongsToMany(models.ServiceAgreement, {
+        through: 'driver_of_service',
+        as: 'Services',
+        foreignKey: 'driver_id'
       })
     }
   };
@@ -29,10 +35,10 @@ module.exports = (sequelize, DataTypes) => {
       values: charges,
       allowNull: false
     },
-    psychosensometric_test:{
+    psychosensometric_test: {
       type: DataTypes.DATE
     },
-    occupational_test:{
+    occupational_test: {
       type: DataTypes.DATE
     },
     license_type: {
@@ -42,11 +48,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE
     },
     hasFines: {
-      type: DataTypes.STRING,
-      allowNull: false
+      type: DataTypes.STRING
     },
     file: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING
     }
   }, {
     sequelize,

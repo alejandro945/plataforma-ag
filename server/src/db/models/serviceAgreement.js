@@ -1,30 +1,38 @@
 'use strict';
+const {contract_frequencies}= require('../../helpers')
 const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Fuec extends Model {
+  class ServiceAgreement extends Model {
     static associate(models) {
-      Fuec.belongsTo(models.Client, {
+      ServiceAgreement.belongsTo(models.Client, {
         as: 'Client',
         foreignKey: 'client_id'
       })
-      Fuec.belongsTo(models.Person, {
+      ServiceAgreement.belongsTo(models.User, {
         as: 'Maker',
         foreignKey: 'maker_id'
       })
-      Fuec.belongsTo(models.Vehicle, {
+      ServiceAgreement.belongsTo(models.Vehicle, {
         as: 'Vehicle',
         foreignKey: 'vehicle_id'
       })
-      Fuec.hasMany(models.Employee, {
-        as: 'Driver'
+      ServiceAgreement.belongsToMany(models.Employee, {
+        through: 'driver_of_service',
+        as: 'Drivers',
+        foreignKey:'service_id'
       })
     }
   };
-  Fuec.init({
+  ServiceAgreement.init({
     contract_object: {
       type: DataTypes.STRING,
+      allowNull: false
+    },
+    contract_frequency: {
+      type: DataTypes.ENUM,
+      values: contract_frequencies,
       allowNull: false
     },
     client_id: {
@@ -73,8 +81,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    modelName: 'Fuec',
-    tableName: 'fuecs',
+    modelName: 'ServiceAgreement',
+    tableName: 'contratos_de_servicios',
   });
-  return Fuec;
+  return ServiceAgreement;
 };

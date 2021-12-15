@@ -1,18 +1,23 @@
 'use strict';
-const { id_types, costumer_types, contract_frequencies } = require('../../helpers')
+const { id_types, costumer_types } = require('../../helpers')
 const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Client extends Model {
     static associate(models) {
-      Client.hasMany(models.Fuec, {
-        as: 'Client',
+      Client.hasMany(models.ServiceAgreement, {
+        as: 'Agreements',
         foreignKey: 'client_id'
       })
     }
   };
   Client.init({
+    client_type: {
+      type: DataTypes.ENUM,
+      values: costumer_types,
+      allowNull: false
+    },
     contractor: {
       type: DataTypes.STRING,
       allowNull: false
@@ -36,13 +41,15 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     telephone1: {
-      type: DataTypes.BIGINT
+      type: DataTypes.BIGINT,
+      allowNull: false
     },
     telephone2: {
       type: DataTypes.BIGINT
     },
     address: {
       type: DataTypes.STRING,
+      allowNull: false
     },
     liable: {
       type: DataTypes.STRING,
@@ -59,16 +66,6 @@ module.exports = (sequelize, DataTypes) => {
           this.setDataValue('liable_id_number', this.getDataValue('id_number'));
         }
       }
-    },
-    client_type: {
-      type: DataTypes.ENUM,
-      values: costumer_types,
-      allowNull: false
-    },
-    contract_frequency: {
-      type: DataTypes.ENUM,
-      values: contract_frequencies,
-      allowNull: false
     },
     file: {
       type: DataTypes.STRING,
