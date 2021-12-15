@@ -6,10 +6,10 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Person extends Model {
     static associate(models) {
-      Employee.belongsTo(models.Department,{
+      Person.belongsTo(models.Department,{
         foreignKey: 'department_id'
       })
-      Employee.belongsTo(models.City,{
+      Person.belongsTo(models.City,{
         foreignKey: 'city_id'
       })
     }

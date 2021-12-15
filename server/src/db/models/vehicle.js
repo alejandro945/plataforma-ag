@@ -12,12 +12,21 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Vehicle.init({
-    owner_id: { type: DataTypes.INTEGER, allowNull: false},
-    lastName: DataTypes.STRING,
+    owner_id: { type: DataTypes.INTEGER, allowNull: false },
+    intern: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    state: {
+      type: DataTypes.STRING,
+      defaultValue: 'ACTIVO'
+    },
+    plate: { type: DataTypes.STRING, allowNull: false },
     email: DataTypes.STRING
   }, {
-  sequelize,
-  modelName: 'Vehicle',
-});
-return Vehicle;
+    sequelize,
+    modelName: 'Vehicle',
+    tableName:'vehiculos'
+  });
+  return Vehicle;
 };
