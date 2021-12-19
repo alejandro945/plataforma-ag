@@ -1,23 +1,23 @@
 const fs = require('fs');
-require('dotenv').config()
+const { dev } = require('./index')
 module.exports = {
   development: {
-    dialect: 'mysql',
-    username: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE,
-    host: process.env.DB_HOST,
+    dialect: dev.dialect,
+    username: dev.username,
+    password: dev.password,
+    database: dev.database,
+    host: dev.host,
     dialectOptions: {
-      socketPath: process.env.DB_SOCKET
+      socketPath: dev.socketPath
     }
   },
   test: {
     username: process.env.CI_DB_USERNAME,
     password: process.env.CI_DB_PASSWORD,
     database: process.env.CI_DB_NAME,
-    host: '127.0.0.1',
+    host: '',
     port: 3306,
-    dialect: 'mysql',
+    dialect: '',
     dialectOptions: {
       bigNumberStrings: true
     }

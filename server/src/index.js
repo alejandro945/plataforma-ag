@@ -3,22 +3,19 @@ const app = express();
 const morgan = require('morgan');
 const cors = require('cors');
 const indexRouter = require('./routes');
-const errorHandler = require('./middleware/error-handler');
 //Settings
-const port = process.env.NODE_ENV === 'production' ? 80 :4000;
-//External Access from Fronted
+const { port, api } = require('./config');
+//External Access from Front
 app.use(cors());
-//Middlewares
+//App Middleware
 app.use(morgan('dev'));
-app.use(errorHandler);
-//Support the data that we will receive (capturar datos del formulario)
+//Support the data that we will receive
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 //Index Route from folder
-app.use('/api',indexRouter);
+app.use(api.prefix, indexRouter);
 //Starting the server
 app.listen(port, () => {
     console.log(`Server on port ${port}`)
 })
-//node-fetch para hacer peticiones post get delete desde otros servicios from web
 //npm run dev for nodemon

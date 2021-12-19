@@ -1,5 +1,5 @@
 const jwt = require('express-jwt')
-const {secret} = require('../config/auth.config')
+const { secret, jwtAlgorithm } = require('../config')
 
 function authorize(roles = []) {
     if (typeof roles === 'string') {
@@ -7,7 +7,7 @@ function authorize(roles = []) {
     }
     return [
         // authenticate JWT token and attach user to request object (req.user)
-       jwt({ secret, algorithms: ['HS256'] }),
+        jwt({ secret, algorithms: [jwtAlgorithm] }),
         //RBAC
         (req, res, next) => {
             if (roles.length && !roles.includes(req.user.role)) {

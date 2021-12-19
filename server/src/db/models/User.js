@@ -18,9 +18,9 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     username: {
-      type: DataTypes.STRING, 
-      allowNull: false, 
-      unique: true, 
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
       validate: {
         isEmail: true
       }
@@ -34,8 +34,21 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     role: { type: DataTypes.STRING, allowNull: false },
-    estado: { type: DataTypes.BOOLEAN, defaultValue: 1 }
+    state: { type: DataTypes.BOOLEAN, defaultValue: 1 }
   }, {
+    scopes: {
+      raw: {
+        attributes: {
+          exclude: ['contraseña']
+        }
+      },
+      contrast(value) {
+        return {
+          where: { username: value },
+          defaults: value
+        }
+      }
+    },
     sequelize,
     modelName: 'User',
     tableName: 'usuarios'
