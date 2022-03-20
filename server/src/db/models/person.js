@@ -6,10 +6,10 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Person extends Model {
     static associate(models) {
-      Person.belongsTo(models.Department,{
+      Person.belongsTo(models.Department, {
         foreignKey: 'department_id'
       })
-      Person.belongsTo(models.City,{
+      Person.belongsTo(models.City, {
         foreignKey: 'city_id'
       })
     }
@@ -56,17 +56,17 @@ module.exports = (sequelize, DataTypes) => {
         isNumeric: true
       }
     },
-    department_id:{
+    department_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       foreignKey: true
     },
-    city_id:{
+    city_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       foreignKey: true
     },
-    birth:{
+    birth: {
       type: DataTypes.DATE,
       allowNull: false,
     },
@@ -75,6 +75,13 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 'ACTIVO'
     }
   }, {
+    scopes: {
+      contrast(value) {
+        return {
+          where: { firstName: value }
+        }
+      }
+    },
     sequelize,
     modelName: 'Person',
     tableName: 'individuos'
