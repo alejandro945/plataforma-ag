@@ -3,12 +3,12 @@ const errorHandler = require('../middlewares/error-handler');
 //Inicializar el Router de Express
 const router = Router();
 //Routes (Rest API)
-const places = require('../api/places/routes')
-const vehicles = require('../api/vehicles/routes')
-const collaborators = require('../api/collaborators/routes')
-const users = require('../api/users/routes')
-const empAgreements = require('../api/empAgreements/routes')
-const individuals = require('../api/individuals/routes')
+const places = require('../controllers/places/routes')
+const vehicles = require('../controllers/vehicles/routes')
+const collaborators = require('../controllers/collaborators')
+const users = require('../controllers/users/routes')
+const empAgreements = require('../controllers/empAgreements/routes')
+const individuals = require('../controllers/individuals');
 //GET * Api Services
 router.use('/places', places);
 router.use('/vehicles', vehicles);
@@ -18,7 +18,7 @@ router.use('/empAgreements', empAgreements);
 router.use('/individuals', individuals);
 //Not Found
 router.get('*', (_, res) => { res.status(404).send({ error: 'Service Not Found' }) })
-//General Middleware
+//General Middlewares
 router.use(errorHandler);
 
 module.exports = router
